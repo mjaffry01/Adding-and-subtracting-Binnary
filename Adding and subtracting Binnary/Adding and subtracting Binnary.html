@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Addition and Subtraction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Binary Addition and Subtraction</h2>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="mb-3">
+                    <label for="binary1" class="form-label">Enter First Binary Number:</label>
+                    <input type="text" class="form-control" id="binary1" placeholder="e.g. 1011">
+                </div>
+                <div class="mb-3">
+                    <label for="binary2" class="form-label">Enter Second Binary Number:</label>
+                    <input type="text" class="form-control" id="binary2" placeholder="e.g. 1101">
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button class="btn btn-primary" onclick="performAddition()">Add</button>
+                    <button class="btn btn-danger" onclick="performSubtraction()">Subtract</button>
+                </div>
+                <div class="mt-4">
+                    <h4>Result:</h4>
+                    <p id="result"></p>
+                    <p id="detailedResult"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function performAddition() {
+            const binary1 = document.getElementById("binary1").value;
+            const binary2 = document.getElementById("binary2").value;
+            
+            if (!isValidBinary(binary1) || !isValidBinary(binary2)) {
+                document.getElementById("result").innerText = "Please enter valid binary numbers.";
+                document.getElementById("detailedResult").innerText = "";
+                return;
+            }
+
+            const num1 = parseInt(binary1, 2);
+            const num2 = parseInt(binary2, 2);
+            const sum = num1 + num2;
+            const binarySum = sum.toString(2);
+            
+            document.getElementById("result").innerText = `Addition of ${binary1} and ${binary2} is: ${binarySum}`;
+            document.getElementById("detailedResult").innerText = `Detailed Explanation: \n` +
+                `1. Convert binary to decimal: ${binary1} (binary) = ${num1} (decimal), ${binary2} (binary) = ${num2} (decimal).\n` +
+                `2. Add the decimal values: ${num1} + ${num2} = ${sum}.\n` +
+                `3. Convert the result back to binary: ${sum} (decimal) = ${binarySum} (binary).`;
+        }
+
+        function performSubtraction() {
+            const binary1 = document.getElementById("binary1").value;
+            const binary2 = document.getElementById("binary2").value;
+            
+            if (!isValidBinary(binary1) || !isValidBinary(binary2)) {
+                document.getElementById("result").innerText = "Please enter valid binary numbers.";
+                document.getElementById("detailedResult").innerText = "";
+                return;
+            }
+
+            const num1 = parseInt(binary1, 2);
+            const num2 = parseInt(binary2, 2);
+            const difference = num1 - num2;
+
+            if (difference < 0) {
+                document.getElementById("result").innerText = `Subtraction of ${binary2} from ${binary1} results in a Negative Result (${difference})`;
+                document.getElementById("detailedResult").innerText = `Detailed Explanation: \n` +
+                    `1. Convert binary to decimal: ${binary1} (binary) = ${num1} (decimal), ${binary2} (binary) = ${num2} (decimal).\n` +
+                    `2. Subtract the decimal values: ${num1} - ${num2} = ${difference}.\n` +
+                    `3. Since the result is negative, it cannot be represented directly as a positive binary number.`;
+            } else {
+                const binaryDifference = difference.toString(2);
+                document.getElementById("result").innerText = `Subtraction of ${binary2} from ${binary1} is: ${binaryDifference}`;
+                document.getElementById("detailedResult").innerText = `Detailed Explanation: \n` +
+                    `1. Convert binary to decimal: ${binary1} (binary) = ${num1} (decimal), ${binary2} (binary) = ${num2} (decimal).\n` +
+                    `2. Subtract the decimal values: ${num1} - ${num2} = ${difference}.\n` +
+                    `3. Convert the result back to binary: ${difference} (decimal) = ${binaryDifference} (binary).`;
+            }
+        }
+
+        function isValidBinary(binary) {
+            return /^[01]+$/.test(binary);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
